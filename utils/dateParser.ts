@@ -15,6 +15,14 @@ export class DateParser {
     return new Date().getDay()
   }
 
+  hour(){
+    return new Date().getHours()
+  }
+
+  minutes(){
+    return new Date().getMinutes()
+  }
+
   weekDayName(){
     const weekDayNumber = new Date().getDay()
     const weekDayNames = [
@@ -50,5 +58,9 @@ export class DateParser {
 
   dateString(){
     return `${this.weekDayName()}, ${this.day()} de ${this.monthName()}`
+  }
+
+  clockString(){
+    return `${this.hour()}:${this.minutes()}`
   }
 }
