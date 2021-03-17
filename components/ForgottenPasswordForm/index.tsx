@@ -2,44 +2,30 @@ import React from 'react'
 import { Div, Button, Input, Text } from 'atomize'
 import { Center } from '../'
 import Link from 'next/link'
-import AuthState from '../../dtos/AuthState'
-import User from '../../dtos/User'
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import { setLoggedUser } from '../../store/modules/auth/reducer'
+import { useDispatch } from 'react-redux'
 import UsersService from '../../services/users'
 import { toast } from 'react-toastify'
 
-interface LoginProps {
+interface ForgottenPasswordProps {
   titlePhrase: String,
   buttonPhrase: String
 }
 
-export const LoginForm: React.FC<LoginProps> = ({ titlePhrase, buttonPhrase }) => {
+export const ForgottenPasswordForm: React.FC<ForgottenPasswordProps> = ({ titlePhrase, buttonPhrase }) => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const loggedUser: User = useSelector((state: AuthState) => state.auth.loggedUser)
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const passwordRef = useRef(null)
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
 
     try {
-      const response = await UsersService.signIn({ email, password })
+      const response = await UsersService.forgottenPassword({ email })
 
-      const { id, email: userEmail, name } = response.data.data
+      dispatch()
 
-      const user = {
-        id,
-        name,
-        email: userEmail
-      }
-
-      dispatch(setLoggedUser(user))
-
-      toast('Login realizado com sucesso!', {
+      toast('Um email com instruções foi enviado para você!', {
         position: 'top-right',
         autoClose: 5000,
         closeButton: false,
@@ -50,9 +36,8 @@ export const LoginForm: React.FC<LoginProps> = ({ titlePhrase, buttonPhrase }) =
         progress: undefined,
       })
 
-      router.push('/Dashboard/')
     } catch (err) {
-      toast('E-mail ou senha inválidos!', {
+      toast('E-mail inválido!', {
         position: 'top-right',
         autoClose: 5000,
         closeButton: false,
@@ -64,15 +49,6 @@ export const LoginForm: React.FC<LoginProps> = ({ titlePhrase, buttonPhrase }) =
       })
     }
   }
-
-  useEffect(() => {
-    if(loggedUser) {
-      setEmail(loggedUser.email);
-      if(passwordRef && passwordRef.current) {
-        passwordRef.current.focus();
-      }
-    }
-  }, [loggedUser])
 
   return (
     <Div d='flex' justify='space-between' w='100%' h='100vh'>
@@ -88,11 +64,20 @@ export const LoginForm: React.FC<LoginProps> = ({ titlePhrase, buttonPhrase }) =
 
           <Div m={{ t: '2rem' }} />
 
-          <Input h='1.8rem' w='17rem' bg='white' border focusShadow='1' shadow='2' placeholder='Meu e-mail' value={email} type='email' onChange={ (evt: React.ChangeEvent<HTMLInputElement>) => setEmail(evt.target.value)} required />
-
-          <Div m={{ t: '1rem' }} />
-
-          <Input h='1.8rem' w='17rem' bg='white' border focusShadow='1' shadow='2' ref={passwordRef} placeholder='Senha' value={password} type='password' onChange={ (evt: React.ChangeEvent<HTMLInputElement>) =>setPassword(evt.target.value) } required />
+          <Input
+            h='1.8rem'
+            w='17rem'
+            bg='white'
+            border
+            focusShadow='1'
+            shadow='2'
+            placeholder='Meu
+            e-mail'
+            value={email}
+            type='email'
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
+            required
+          />
 
           <Div m={{ t: '1.5rem' }} />
 
@@ -103,7 +88,7 @@ export const LoginForm: React.FC<LoginProps> = ({ titlePhrase, buttonPhrase }) =
           <br />
 
           <Center>
-            <Link href='/Auth/PasswordRecovery'>Esqueci minha senha</Link>
+            <Link href='/Auth/Login'>Fazer login</Link>
           </Center>
 
           <Center>

@@ -3,7 +3,7 @@ import { SignUpForm } from '../../../components'
 
 const SignUp: React.FC = () => {
   return (
-    <SignUpForm titlePhrase="Criar uma conta" buttonPhrase="ACESSAR" />
+    <SignUpForm titlePhrase='Criar uma conta' buttonPhrase='Acessar' />
   )
 }
 

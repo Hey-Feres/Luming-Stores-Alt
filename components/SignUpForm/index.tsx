@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { InputGroup, FormControl, Button, Row, Col } from 'react-bootstrap'
+import { Div, Button, Input, Text } from 'atomize'
+import { Center } from '../'
 import Link from 'next/link'
 import UsersService from '../../services/users'
 import { toast } from 'react-toastify'
@@ -59,60 +60,77 @@ export const SignUpForm: React.FC<SignUpProps> = ({ titlePhrase, buttonPhrase })
   }
 
   return (
-    <div>
-      <Row>
-        <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }}>
-          <h4>{titlePhrase}</h4>
+    <Div d='flex' justify='space-between' w='100%' h='100vh'>
+      <Div d='flex' justify='center' align='center' w='50%' h='100vh' bg='primary'>
+        <Text textColor='white' textSize='display1'> Luming </Text>
+      </Div>
 
-          <form onSubmit={handleSubmit}>
-            <InputGroup className="mt-3">
-              <FormControl
-                placeholder="Meu Nome"
-                type="text"
-                value={name}
-                onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setName(evt.target.value)}
-                required
-              />
-            </InputGroup>
+      <Div d='flex' justify='center' align='center' w='50%' h='100vh' bg='white'>
+        <form onSubmit={handleSubmit}>
+          <Center>
+            <Text textSize='title'>{ titlePhrase }</Text>
+          </Center>
 
-            <InputGroup className="mt-3">
-              <FormControl
-                placeholder="Meu e-mail"
-                type="email"
-                value={email}
-                onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setEmail(evt.target.value)}
-                required
-              />
-            </InputGroup>
+          <Input
+            placeholder='Meu Nome'
+            type='text'
+            value={name}
+            onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setName(evt.target.value)}
+            required
+            m={{ t: '2rem' }}
+            h='1.8rem'
+            w='17rem'
+            bg='white'
+            border
+            focusShadow='1'
+            shadow='2'
+          />
 
-            <InputGroup className="mt-3">
-              <FormControl
-                placeholder="Senha"
-                type="password"
-                value={password}
-                onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setPassword(evt.target.value)}
-                required
-              />
-            </InputGroup>
+          <Input
+            placeholder='Meu e-mail'
+            type='email'
+            value={email}
+            onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setEmail(evt.target.value)}
+            required
+            m={{ t: '1rem' }}
+            h='1.8rem'
+            w='17rem'
+            bg='white'
+            border
+            focusShadow='1'
+            shadow='2'
+          />
 
-            <InputGroup className="mt-3">
-              <FormControl
-                placeholder="Confirmação de senha"
-                type="password"
-                value={passwordConfirmation}
-                onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setPasswordConfirmation(evt.target.value)}
-                required
-              />
-            </InputGroup>
+          <Input
+            placeholder='Senha'
+            type='password'
+            value={password}
+            onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setPassword(evt.target.value)}
+            required
+            m={{ t: '1rem' }}
+            h='1.8rem'
+            w='17rem'
+            bg='white'
+            border
+            focusShadow='1'
+            shadow='2'
+          />
 
-            <Button type="submit" className="btn btn-info mt-3 w-100">{buttonPhrase}</Button>
+          <Div m={{ t: '1.5rem' }} />
 
-            <br/>
+          <Center>
+            <Button h='1.8rem' w='75%' shadow='3' hoverShadow='1' type='submit'> { buttonPhrase } </Button>
+          </Center>
 
-            <Link href="/Auth/Login">Já tenho uma conta</Link>
-          </form>
-        </Col>
-      </Row>
-    </div>
+          <br/>
+
+          <Center>
+            <Link href='/Auth/Login'>Já tenho uma conta</Link>
+          </Center>
+        </form>
+      </Div>
+    </Div>
   )
 }
+
+

@@ -1,5 +1,6 @@
 export { LoginForm } from './LoginForm'
 export { SignUpForm } from './SignUpForm'
+export { ForgottenPasswordForm } from './ForgottenPasswordForm'
 export { withAuth } from './withAuth'
 export { MainComponent } from './MainComponent'
 export { Sidebar } from './Sidebar'
