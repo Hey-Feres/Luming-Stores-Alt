@@ -3,7 +3,7 @@ import { LoginForm } from '../../../components'
 
 const Login: React.FC = () => {
   return (
-    <LoginForm titlePhrase="Acessar minha conta" buttonPhrase="ACESSAR" />
+    <LoginForm titlePhrase='Acessar minha conta' buttonPhrase='Acessar' />
   )
 }
 
