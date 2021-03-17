@@ -24,7 +24,7 @@ api.interceptors.response.use((res) => {
 })
 
 api.interceptors.request.use((req) => {
-  if(req.url.includes('admin')) {
+  if(req.url.includes('admin') && !req.url.includes('auth')) {
     const apiData: ApiData = JSON.parse(Cookie.get('@api-data'))
     req.headers = apiData
   }
