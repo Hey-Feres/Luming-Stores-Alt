@@ -16,15 +16,15 @@ interface RowStructProps {
 export const RowStruct: React.FC<RowStructProps> = ({ bg, w, h, border, borderColor, d, justify, align, p, children }) => {
   return(
     <Div
-      bg={'white' || bg}
-      w={'100%' || w}
-      h={'4rem' || h}
-      border={{ y: '1px solid' } || border}
-      borderColor={'#f1f1f1' || borderColor}
-      d={'flex' || d}
-      justify={'space-between' || justify}
-      align={'center' || align}
-      p={{ x: '.5rem' } || p}
+      bg={bg || 'white'}
+      w={w || '100%'}
+      h={h || '4rem'}
+      border={border || { y: '1px solid' }}
+      borderColor={borderColor || '#f1f1f1'}
+      d={d || 'flex'}
+      justify={justify || 'space-between'}
+      align={align || 'center'}
+      p={p || { x: '.5rem' }}
     >
       { children }
     </Div>
