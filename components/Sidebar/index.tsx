@@ -10,9 +10,10 @@ interface SidebarItemProps {
 
 export const Sidebar: React.FC = () => {
   const dateParser = new DateParser
+  const width = { xs: '0', sm: '0', md: '0', lg: '15%', xl: '15%' }
 
   return(
-    <Div w='15%' h='100vh' bg='gray6'>
+    <Div w={width} h='100vh' bg='gray6'>
       <Div w='100%' h='10%'>
         <Div h='100%' p={{ x: '3%' }} d='flex' flexDir='column' justify='center' align='center'>
           <Div w='100%' h='100%' d='flex' justify='space-between' align='center'>

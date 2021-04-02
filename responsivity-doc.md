@@ -1,0 +1,5 @@
+- xs: Mobile
+- sm: Large Mobile
+- md: Tablets
+- lg: Small Desktop
+- xl: Large Desktop
