@@ -60,7 +60,7 @@ const ProductsList: React.FC = () => {
 
         <Modal title='Adicionar Produto' isOpen={modalVisible} onClose={() => closeProductFormModal()}>
           <Div w='100%' h='30rem' bg='success200'>
-            <Button h='1.8rem' w='40%' shadow='3' hoverShadow='1' bg='green' textColor='white' type='submit'> Salvar </Button>
+            <Button h='1.8rem' w='40%' shadow='3' hoverShadow='1' bg='green' textColor='white'> Salvar </Button>
           </Div>
         </Modal>
       </MainComponent>
