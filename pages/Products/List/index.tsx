@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { Div, Button } from 'atomize'
-import { MainComponent, ListView, PageHeader, Modal, withAuth } from '../../../components'
+import { MainComponent, ListView, PageHeader, Modal, ProductForm, withAuth } from '../../../components'
 import { Row } from './row'
 import { toast } from 'react-toastify'
 import useSWR from 'swr'
@@ -37,9 +37,7 @@ const ProductsList: React.FC = () => {
 
   const closeProductFormModal = () => switchModalVisibility()
 
-  const rowStruct = (data) => {
-    return <Row data={data} />
-  }
+  const rowStruct = (data) => { return <Row data={data} /> }
 
   return (
     <>
@@ -59,9 +57,7 @@ const ProductsList: React.FC = () => {
         />
 
         <Modal title='Adicionar Produto' isOpen={modalVisible} onClose={() => closeProductFormModal()}>
-          <Div w='100%' h='30rem' bg='success200'>
-            <Button h='1.8rem' w='40%' shadow='3' hoverShadow='1' bg='green' textColor='white'> Salvar </Button>
-          </Div>
+          <ProductForm />
         </Modal>
       </MainComponent>
     </>
