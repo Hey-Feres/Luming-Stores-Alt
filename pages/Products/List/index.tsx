@@ -30,9 +30,16 @@ const ProductsList: React.FC = () => {
     setUrl(defaultUrl + UrlService.execute({ page: router.query.page, search }))
   }, [search, router.query.page])
 
-  if (error) {
-    toast.error('Erro ao carregar produtos')
-    console.log(error)
+  if (error) toast.error(`${t('product.one')} ${t('application.load.error')}`)
+
+  const handleSubmit = async (product: FormData): Promise<void> => {
+    try {
+      await ProductsService.create(product)
+      toast(`${t('product.one')} ${t('application.save.success')}`)
+      switchModalVisibility()
+    } catch (err) {
+      toast(`${t('product.one')} ${t('application.save.error')}`)
+    }
   }
 
   const switchModalVisibility = () => setModalVisibility(!modalVisible)
@@ -61,7 +68,7 @@ const ProductsList: React.FC = () => {
         />
 
         <Modal title={t('product.new.title')} isOpen={modalVisible} onClose={() => closeProductFormModal()}>
-          <ProductForm />
+          <ProductForm handleSubmit={handleSubmit} action='new' />
         </Modal>
       </MainComponent>
     </>

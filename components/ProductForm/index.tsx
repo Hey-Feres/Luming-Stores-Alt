@@ -1,6 +1,7 @@
 import React from 'react'
 import { Div, Button, Input, Text, Textarea, Icon } from 'atomize'
 import { Center, FileUploader } from '../'
+// <FileUploader setPreview={setPreview} preview={photos} />
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
@@ -8,58 +9,42 @@ import { useTranslation } from 'react-i18next'
 import '../../config/locales/i18n'
 
 interface Props {
+  handleSubmit: (product: FormData) => Promise<void>
+  action?: string
 }
 
-export const ProductForm: React.FC<Props> = ({ }) => {
+export const ProductForm: React.FC<Props> = ({ handleSubmit, action }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const hiddenFileInput = useRef(null)
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [stock, setStock] = useState('')
-  const [photo, setPhoto] = useState('')
-  const [image, setImage] = useState<File>()
+  // const [photos, setPhotos] = useState([])
+  // const [preview, setPreview] = useState([])
 
-  const handleClick = event => hiddenFileInput.current.click()
-
-  const handleChange = event => setPhoto(event.target.files)
-
-  const handleSubmit = async (event: React.FormEvent): Promise<void> => {
+  const handleFormSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
 
-    try {
+    const formData = new FormData()
 
-      toast('Salvo com Sucesso', {
-        position: 'top-right',
-        autoClose: 5000,
-        closeButton: false,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
-    } catch (err) {
-      toast('Erro ao salvar!', {
-        position: 'top-right',
-        autoClose: 5000,
-        closeButton: false,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
-    }
+    formData.append('product[name]', name)
+    formData.append('product[description]', description)
+    let priceCents = parseFloat(price) * 100
+    formData.append('product[price_attributes][value_cents]', priceCents)
+    formData.append('product[inventory_attributes][quantity]', stock)
+
+    // if (image) {
+    //   formData.append('product[image]', image)
+    // }
+
+    handleSubmit(formData)
   }
 
   return (
     <Div w='100%' h='35rem'>
-      <form onSubmit={handleSubmit}>
-        <FileUploader setImage={setImage} image={photo} />
-
+      <form onSubmit={handleFormSubmit}>
         <Input
           m={{ t: '1rem' }}
           h='2.3rem'

@@ -1,4 +1,18 @@
 export const TRANSLATIONS_PT_BR = {
+  application: {
+    save: {
+      error: 'não pôde ser salvo',
+      success: 'salvo com sucesso'
+    },
+    destroy: {
+      error: 'não pôde ser apagado',
+      success: 'apagado com sucesso'
+    },
+    load: {
+      error: 'não pôde ser carregado',
+      success: 'carregado com sucesso'
+    }
+  },
   sidebar: {
     dashboard: 'Dashboard',
     products: 'Produtos',
