@@ -1,5 +1,7 @@
 import { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
+import Cookies from 'js-cookie'
 import { ThemeProvider, StyleReset } from 'atomize'
 import { Provider as StyletronProvider } from 'styletron-react'
 import { styletron } from '../styletron'
@@ -14,6 +16,10 @@ const theme = Theme
 toast.configure()
 
 const Main: React.FC<AppProps> = ({ Component, pageProps }) => {
+  const router = useRouter()
+  const { lang } = router.query
+  Cookies.set('lang', lang)
+
   return(
     <ThemeProvider theme={theme}>
       <StyletronProvider value={styletron}>

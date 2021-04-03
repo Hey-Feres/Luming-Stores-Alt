@@ -10,10 +10,14 @@ import useSWR from 'swr'
 import ProductsService from '../../../services/products'
 import { UrlService } from '../../../utils'
 import Product from '../../../dtos/Product'
+import { useTranslation } from 'react-i18next'
+import '../../../config/locales/i18n'
 
 const defaultUrl = '/api/v1/admin/products'
 
 const ProductsList: React.FC = () => {
+  const { t } = useTranslation()
+
   const [url, setUrl] = useState(defaultUrl)
   const [modalVisible, setModalVisibility] = useState(false)
 
@@ -43,7 +47,7 @@ const ProductsList: React.FC = () => {
     <>
       <MainComponent>
         <PageHeader
-          title='Produtos'
+          title={t('product.other')}
           iconName='Plus'
           iconColor='blue'
           iconSize='25px'
@@ -56,7 +60,7 @@ const ProductsList: React.FC = () => {
           meta={data?.meta}
         />
 
-        <Modal title='Adicionar Produto' isOpen={modalVisible} onClose={() => closeProductFormModal()}>
+        <Modal title={t('product.new.title')} isOpen={modalVisible} onClose={() => closeProductFormModal()}>
           <ProductForm />
         </Modal>
       </MainComponent>
