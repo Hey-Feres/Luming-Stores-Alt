@@ -14,11 +14,11 @@ export const FileUploader: React.FC<Props> = ({ setPreview, preview }) => {
   const [imagesToShow, setImagesToShow] = useState([])
   const imageInputRef = useRef(null)
 
-  useEffect (() => {
-    if (preview) {
-      setImagesToShow(preview)
-    }
-  }, [preview])
+  // useEffect (() => {
+  //   if (preview) {
+  //     setImagesToShow(preview)
+  //   }
+  // }, [preview])
 
   const handleUpdateImage = (): void => {
     if (imageInputRef) {
@@ -26,20 +26,21 @@ export const FileUploader: React.FC<Props> = ({ setPreview, preview }) => {
     }
   }
 
-  const handleSetImage = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    let files = evt.target.files
+  const handleSetImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let files = event.target.files
     let filesForPreview = []
+    let filesToDisplay = []
 
     for (let i = 0; i < files.length; i++) {
       filesForPreview.push(files[i])
     }
 
     setPreview(filesForPreview)
-    setImagesToShow(filesForPreview.map(file => {
-      URL.createObjectURL(file)
-    }))
-    console.info(filesForPreview)
-    console.info(imagesToShow)
+
+    for (let i = 0; i < filesForPreview.length; i++) {
+      filesToDisplay.push(URL.createObjectURL(filesForPreview[i]))
+    }
+    setImagesToShow(filesToDisplay)
   }
 
   return (
