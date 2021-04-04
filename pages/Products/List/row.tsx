@@ -5,7 +5,7 @@ import { RowStruct } from '../../../components'
 interface Props {
   data: {
     attributes: {
-      photo: string
+      photos: []
       name: string,
       value: number
     }
@@ -18,8 +18,8 @@ export const Row: React.FC<Props> = ({ data }) => {
         <Div h='7rem' w='70%' d='flex' justify='flex-start' align='center'>
           <Div w='5rem' h='6rem' d='flex' justify='center' align='center'>
             {
-              data.attributes.photo != null ?
-                <Image style={{ objectFit: 'cover' }} src={`http://localhost:3001/${data.attributes.photo.url}`} />
+              data.attributes.photos != null && data.attributes.photos.length != 0 ?
+                <Image style={{ objectFit: 'cover' }} src={`http://localhost:3001/${data.attributes.photos[0].url}`} />
               :
                 <Icon name='Photo' size='20px' color='gray' />
             }
