@@ -21,7 +21,6 @@ export const ProductForm: React.FC<Props> = ({ handleSubmit, action }) => {
   const [price, setPrice] = useState('')
   const [stock, setStock] = useState('')
   const [photos, setPhotos] = useState([])
-  const [preview, setPreview] = useState([])
 
   const handleFormSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
@@ -42,7 +41,9 @@ export const ProductForm: React.FC<Props> = ({ handleSubmit, action }) => {
   return (
     <Div w='100%' h='35rem'>
       <form onSubmit={handleFormSubmit}>
-        <FileUploader setPreview={setPreview} preview={preview} />
+        <Div m={{ t: '1.5rem' }} />
+
+        <FileUploader setFiles={setPhotos} files={photos} />
 
         <Input
           m={{ t: '1rem' }}
@@ -106,7 +107,7 @@ export const ProductForm: React.FC<Props> = ({ handleSubmit, action }) => {
 
         <Center>
           <Button
-            m={{ t: '2rem' }}
+            m={{ t: '3rem' }}
             h='1.8rem'
             w='40%'
             shadow='3'

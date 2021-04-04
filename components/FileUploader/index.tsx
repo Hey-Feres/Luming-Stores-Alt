@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next'
 import '../../config/locales/i18n'
 
 interface Props {
-  setPreview: Dispatch<SetStateAction<File[]>>
-  preview: File[]
+  setFiles: Dispatch<SetStateAction<File[]>>
+  files: File[]
 }
 
-export const FileUploader: React.FC<Props> = ({ setPreview, preview }) => {
+export const FileUploader: React.FC<Props> = ({ setFiles, files }) => {
   const { t } = useTranslation()
-  const [imagesToShow, setImagesToShow] = useState([])
+  const [filesPreview, setFilesPreview] = useState([])
   const imageInputRef = useRef(null)
 
   // useEffect (() => {
@@ -26,26 +26,22 @@ export const FileUploader: React.FC<Props> = ({ setPreview, preview }) => {
     }
   }
 
-  const removePhoto = (blob) => {
-    let _imagesToShow = imagesToShow.filter((item) => item !== blob)
-    setImagesToShow(_imagesToShow)
-  }
+  const removePhoto = (blob) => setFilesPreview(filesPreview.filter((item) => item !== blob))
 
   const handleSetImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     let files = event.target.files
-    let filesForPreview = []
-    let filesToDisplay = []
 
+    let selectedFiles = []
     for (let i = 0; i < files.length; i++) {
-      filesForPreview.push(files[i])
+      selectedFiles.push(files[i])
     }
+    setFiles(selectedFiles)
 
-    setPreview(filesForPreview)
-
-    for (let i = 0; i < filesForPreview.length; i++) {
-      filesToDisplay.push(URL.createObjectURL(filesForPreview[i]))
+    let filesPreview = []
+    for (let i = 0; i < selectedFiles.length; i++) {
+      filesPreview.push(URL.createObjectURL(selectedFiles[i]))
     }
-    setImagesToShow(filesToDisplay)
+    setFilesPreview(filesPreview)
   }
 
   return (
@@ -58,15 +54,12 @@ export const FileUploader: React.FC<Props> = ({ setPreview, preview }) => {
           hidden
           multiple
           ref={imageInputRef}
-          onChange={
-            (evt: React.ChangeEvent<HTMLInputElement>) =>
-              handleSetImage(evt)
-          }
+          onChange={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetImage(evt)}
         />
       </label>
 
       {
-        imagesToShow.length == 0 ?
+        filesPreview.length == 0 ?
           <Div onClick={handleUpdateImage} m={{ t: '1rem' }} bg='white' w='100%' h='10rem' d='flex' justify='center' align='center' cursor='pointer'>
             <Center>
               <Icon name='CameraSolid' size='40px' color='gray4' />
@@ -76,14 +69,14 @@ export const FileUploader: React.FC<Props> = ({ setPreview, preview }) => {
         :
           <Div d='flex' justify='center'>
             {
-              imagesToShow.map((image, index) => {
+              filesPreview.map((image, index) => {
                 return(
                   <Div m={{ x: '2%' }}>
                     <Div rounded='5px' shadow='2' w='6rem' h='8rem' d='flex' justify='center' align='center' bg='gray6' overflow='hidden'>
                       <Image src={image} alt='Product image' style={{width: '5rem'}} />
                     </Div>
                     <Center>
-                      <Icon onClick={() => removePhoto(image)} m={{ t: '5%' }} name='Close' size='20px' color='red' />
+                      <Icon onClick={() => removePhoto(image)} m={{ t: '5%' }} name='Close' size='20px' color='red' cursor='pointer' />
                     </Center>
                   </Div>
                 )
