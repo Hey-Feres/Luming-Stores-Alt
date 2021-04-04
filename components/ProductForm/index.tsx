@@ -1,7 +1,6 @@
 import React from 'react'
 import { Div, Button, Input, Text, Textarea, Icon } from 'atomize'
 import { Center, FileUploader } from '../'
-// <FileUploader setPreview={setPreview} preview={photos} />
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
@@ -21,8 +20,8 @@ export const ProductForm: React.FC<Props> = ({ handleSubmit, action }) => {
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [stock, setStock] = useState('')
-  // const [photos, setPhotos] = useState([])
-  // const [preview, setPreview] = useState([])
+  const [photos, setPhotos] = useState([])
+  const [preview, setPreview] = useState([])
 
   const handleFormSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
@@ -32,12 +31,10 @@ export const ProductForm: React.FC<Props> = ({ handleSubmit, action }) => {
     formData.append('product[name]', name)
     formData.append('product[description]', description)
     let priceCents = parseFloat(price) * 100
-    formData.append('product[price_attributes][value_cents]', priceCents)
+    formData.append('product[price_attributes][value_cents]', priceCents.toString())
     formData.append('product[inventory_attributes][quantity]', stock)
 
-    // if (image) {
-    //   formData.append('product[image]', image)
-    // }
+    if (photos) formData.append('product[photos]', photos.toString())
 
     handleSubmit(formData)
   }
@@ -45,6 +42,8 @@ export const ProductForm: React.FC<Props> = ({ handleSubmit, action }) => {
   return (
     <Div w='100%' h='35rem'>
       <form onSubmit={handleFormSubmit}>
+        <FileUploader setPreview={setPreview} preview={preview} />
+
         <Input
           m={{ t: '1rem' }}
           h='2.3rem'

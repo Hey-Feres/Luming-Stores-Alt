@@ -6,7 +6,7 @@ import '../../config/locales/i18n'
 
 interface Props {
   setPreview: Dispatch<SetStateAction<File[]>>
-  preview: []
+  preview: File[]
 }
 
 export const FileUploader: React.FC<Props> = ({ setPreview, preview }) => {
