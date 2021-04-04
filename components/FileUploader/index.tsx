@@ -20,20 +20,16 @@ export const FileUploader: React.FC<Props> = ({ setFiles, files }) => {
   //   }
   // }, [preview])
 
-  const handleUpdateImage = (): void => {
-    if (imageInputRef) {
-      imageInputRef.current.click()
-    }
-  }
+  const handleUpdateImage = (): void => { if (imageInputRef) imageInputRef.current.click() }
 
-  const removePhoto = (blob) => setFilesPreview(filesPreview.filter((item) => item !== blob))
+  const removePhoto = (blob: string) => setFilesPreview(filesPreview.filter((item) => item !== blob))
 
   const handleSetImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let files = event.target.files
+    let newFiles = event.target.files
 
-    let selectedFiles = []
-    for (let i = 0; i < files.length; i++) {
-      selectedFiles.push(files[i])
+    let selectedFiles = files
+    for (let i = 0; i < newFiles.length; i++) {
+      selectedFiles.push(newFiles[i])
     }
     setFiles(selectedFiles)
 
