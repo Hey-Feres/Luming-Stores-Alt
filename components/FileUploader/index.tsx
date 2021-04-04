@@ -1,4 +1,4 @@
-import { Div, Text, Icon } from 'atomize'
+import { Div, Text, Icon, Image, Button } from 'atomize'
 import { Center } from '../'
 import { useRef, useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -60,7 +60,7 @@ export const FileUploader: React.FC<Props> = ({ setPreview, preview }) => {
         />
       </label>
 
-      <Div onClick={handleUpdateImage} m={{ t: '1rem' }} bg='white' shadow='3' hoverShadow='2' rounded='10px' w='100%' h='10rem' d='flex' justify='center' align='center' cursor='pointer'>
+      <Div onClick={handleUpdateImage} m={{ t: '1rem' }} bg='white' w='100%' h='10rem' d='flex' justify='center' align='center' cursor='pointer'>
         <Center>
           {
             imagesToShow.length == 0 ?
@@ -69,9 +69,20 @@ export const FileUploader: React.FC<Props> = ({ setPreview, preview }) => {
               <Text textColor='gray2'> {t('product.attributes.photos')} </Text>
             </>
             :
-            imagesToShow.map(image => {
-              return <img src={image} alt='Product image' style={{width: '150px'}} />
-            })
+            <Div d='flex' justify='center'>
+              {
+                imagesToShow.map((image, index) => {
+                  return(
+                    <Div m={{ x: '2%' }}>
+                      <Div rounded='5px' shadow='2' w='6rem' h='8rem' d='flex' justify='center' align='center' bg='gray6' overflow='hidden'>
+                        <Image src={image} alt='Product image' style={{width: '5rem'}} />
+                      </Div>
+                      <Icon m={{ t: '5%' }} name='Close' size='20px' color='red' />
+                    </Div>
+                  )
+                })
+              }
+            </Div>
           }
         </Center>
       </Div>
